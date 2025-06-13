@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jetpackcomposestarter.R
 import com.example.jetpackcomposestarter.navigation.NavigationRoutes
+import com.example.jetpackcomposestarter.shared.theme.JetpackComposeStarterTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +43,8 @@ fun AppDrawer(
 ) {
     ModalDrawerSheet(modifier = Modifier) {
         DrawerHeader(modifier)
-        Spacer(modifier = Modifier.padding(16.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.spacer_padding)))
         NavigationDrawerItem(
             modifier = Modifier.padding(horizontal = 8.dp),
             label = {
@@ -57,62 +60,86 @@ fun AppDrawer(
             },
             icon = { Icon(imageVector = Icons.Default.Home, contentDescription = null) },
         )
-        Spacer(modifier = Modifier.padding(16.dp))
 
-//        NavigationDrawerItem(
-//            label = { Text(text = stringResource(id = R.string.notification_center), fontSize = 20.sp, fontWeight = FontWeight.Medium) },
-//            selected = route == AllDestinations.NOTIFICATION_CENTER,
-//            onClick = {
-//                navigateToNotificationCenter()
-//                closeDrawer()
-//            },
-//            icon = { Icon(imageVector = Icons.Default.Notifications, contentDescription = null) },
-//            shape = MaterialTheme.shapes.large
-//        )
-//
-//        NavigationDrawerItem(
-//            label = { Text(text = stringResource(id = R.string.leave), fontSize = 20.sp, fontWeight = FontWeight.Medium) },
-//            selected = route == AllDestinations.LEAVE,
-//            onClick = {
-//                navigateToLeave()
-//                closeDrawer()
-//            },
-//            icon = { Icon(imageVector = Icons.Default.CalendarMonth, contentDescription = null) },
-//            shape = MaterialTheme.shapes.medium
-//        )
-//
-//        NavigationDrawerItem(
-//            label = { Text(text = stringResource(id = R.string.claims), fontSize = 20.sp, fontWeight = FontWeight.Medium) },
-//            selected = route == AllDestinations.CLAIM,
-//            onClick = {
-//                navigateToClaim()
-//                closeDrawer()
-//            },
-//            icon = { Icon(imageVector = Icons.Default.Money, contentDescription = null) },
-//            shape = MaterialTheme.shapes.small
-//        )
-//
-//        NavigationDrawerItem(
-//            label = { Text(text = stringResource(id = R.string.payroll), fontSize = 20.sp, fontWeight = FontWeight.Medium) },
-//            selected = route == AllDestinations.PAYROLL,
-//            onClick = {
-//                navigateToPayroll()
-//                closeDrawer()
-//            },
-//            icon = { Icon(imageVector = Icons.Default.MonetizationOn, contentDescription = null) },
-//            shape = MaterialTheme.shapes.small
-//        )
-//
-//        NavigationDrawerItem(
-//            label = { Text(text = stringResource(id = R.string.time), fontSize = 20.sp, fontWeight = FontWeight.Medium) },
-//            selected = route == AllDestinations.TIME,
-//            onClick = {
-//                navigateToTime()
-//                closeDrawer()
-//            },
-//            icon = { Icon(imageVector = Icons.Default.AccessTime, contentDescription = null) },
-//            shape = MaterialTheme.shapes.small
-//        )
+        NavigationDrawerItem(
+            modifier = Modifier.padding(horizontal = 8.dp),
+            label = {
+                Text(
+                    text = stringResource(id = R.string.notification_center),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            },
+            selected = false,
+            onClick = {
+                navigateToNotificationCenter()
+                closeDrawer()
+            },
+            icon = { Icon(imageVector = Icons.Default.Notifications, contentDescription = null) },
+        )
+
+        NavigationDrawerItem(
+            modifier = Modifier.padding(horizontal = 8.dp),
+            label = {
+                Text(
+                    text = stringResource(id = R.string.leave),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            },
+            selected = false,
+            onClick = {
+                navigateToLeave()
+                closeDrawer()
+            },
+            icon = { Icon(imageVector = Icons.Default.CalendarToday, contentDescription = null) },
+        )
+
+        NavigationDrawerItem(
+            modifier = Modifier.padding(horizontal = 8.dp),
+            label = {
+                Text(
+                    text = stringResource(id = R.string.claims),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            },
+            selected = false,
+            onClick = {
+                navigateToClaim()
+                closeDrawer()
+            },
+            icon = { Icon(imageVector = Icons.Default.ReceiptLong, contentDescription = null) },
+        )
+
+        NavigationDrawerItem(
+            modifier = Modifier.padding(horizontal = 8.dp),
+            label = {
+                Text(
+                    text = stringResource(id = R.string.payroll),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            },
+            selected = false,
+            onClick = {
+                navigateToClaim()
+                closeDrawer()
+            },
+            icon = { Icon(imageVector = Icons.Default.CreditCard, contentDescription = null) },
+        )
+
+        NavigationDrawerItem(
+            modifier = Modifier.padding(horizontal = 8.dp),
+            label = {
+                Text(
+                    text = stringResource(id = R.string.time),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            },
+            selected = false,
+            onClick = {
+                navigateToTime()
+                closeDrawer()
+            },
+            icon = { Icon(imageVector = Icons.Default.AccessTime, contentDescription = null) },
+        )
 
         NavigationDrawerItem(
             modifier = Modifier.padding(horizontal = 8.dp),
@@ -130,16 +157,21 @@ fun AppDrawer(
             icon = { Icon(imageVector = Icons.Default.Flight, contentDescription = null) },
         )
 
-//        NavigationDrawerItem(
-//            label = { Text(text = stringResource(id = R.string.qr_scan), fontSize = 20.sp, fontWeight = FontWeight.Medium) },
-//            selected = route == AllDestinations.QR_SCAN,
-//            onClick = {
-//                navigateToQRScan()
-//                closeDrawer()
-//            },
-//            icon = { Icon(imageVector = Icons.Default.QrCodeScanner, contentDescription = null) },
-//            shape = MaterialTheme.shapes.medium
-//        )
+        NavigationDrawerItem(
+            modifier = Modifier.padding(horizontal = 8.dp),
+            label = {
+                Text(
+                    text = stringResource(id = R.string.qr_scan),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            },
+            selected = false,
+            onClick = {
+                navigateToQRScan()
+                closeDrawer()
+            },
+            icon = { Icon(imageVector = Icons.Default.QrCodeScanner, contentDescription = null) },
+        )
     }
 }
 
@@ -149,8 +181,8 @@ fun DrawerHeader(modifier: Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .background(MaterialTheme.colorScheme.secondary)
-            .padding(16.dp)
+//            .background(MaterialTheme.colorScheme.onPrimary)
+            .padding(dimensionResource(id = R.dimen.header_padding))
             .fillMaxWidth()
     ) {
 
@@ -159,17 +191,83 @@ fun DrawerHeader(modifier: Modifier) {
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = modifier
-                .size(16.dp)
+                .size(dimensionResource(id = R.dimen.header_image_size))
                 .clip(CircleShape)
         )
-        Spacer(modifier = Modifier.padding(16.dp))
+
+        Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.spacer_padding)))
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Ishak Abdul Aziz",
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodyLarge,
+//                color = MaterialTheme.colorScheme.onPrimary,
+            )
+//            Spacer(modifier = Modifier.width(24.dp))
+//            Icon(
+//                imageVector = Icons.Default.Logout,
+//                contentDescription = "Logout",
+//            )
+        }
 
         Text(
-            text = stringResource(id = R.string.app_name),
+            text = "Vice President, Retail Sales Dept",
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = Color.Gray
         )
     }
 }
 
+//@Composable
+//fun DrawerHeader(modifier: Modifier) {
+//    Column(
+//        modifier = modifier
+////            .background(MaterialTheme.colorScheme.secondary)
+//            .padding(dimensionResource(id = R.dimen.header_padding))
+//            .fillMaxWidth()
+//    ) {
+//        Row(
+//            verticalAlignment = Alignment.CenterVertically
+//        ) {
+//            // Profile Image
+//            Image(
+//                painter = painterResource(id = R.drawable.profile_picture),
+//                contentDescription = null,
+//                contentScale = ContentScale.Crop,
+//                modifier = Modifier
+//                    .size(dimensionResource(id = R.dimen.header_image_size))
+//                    .clip(CircleShape)
+//            )
+//
+//            Spacer(modifier = Modifier.width(12.dp))
+//
+//            // Name and Position+Division stacked
+//            Column {
+//                Text(
+//                    text = "Nur Azimi Binti Ahmad",
+//                    style = MaterialTheme.typography.bodyLarge,
+////                    color = MaterialTheme.colorScheme.onPrimary,
+//                )
+//                Text(
+//                    text = "Vice President, Retail Sales Dept",
+//                    style = MaterialTheme.typography.bodyMedium,
+//                    color = Color.Gray
+//                )
+//            }
+//        }
+//    }
+//}
+
+
+@Preview(showBackground = true)
+@Composable
+fun DrawerHeaderPreview() {
+    JetpackComposeStarterTheme {
+        AppDrawer(modifier = Modifier, route = NavigationRoutes.Authenticated.Home.route)
+    }
+}
