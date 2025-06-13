@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">JetpackComposeStarter</string>
+
+    <!--Screen Titles-->
+    <string name="travel_advance">"Travel Advance"</string>
+    <string name="home">Home</string>
+    <string name="notification_center">Notification Center</string>
+    <string name="leave">Leave</string>
+    <string name="claims">Claims</string>
+    <string name="payroll">Payroll</string>
+    <string name="time">Time</string>
+    <string name="travel">Travel</string>
+    <string name="qr_scan">QR Scan</string>
+
+    <string name="empty_screen_title">Screen under construction</string>
+    <string name="empty_screen_subtitle">Coming soon! While this screen is still under construction</string>
 </resources>
