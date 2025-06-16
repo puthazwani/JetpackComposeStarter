@@ -187,7 +187,7 @@ fun DrawerHeader(modifier: Modifier) {
     ) {
 
         Image(
-            painterResource(id = R.drawable.profile_picture),
+            painterResource(id = R.drawable.user),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = modifier
@@ -217,7 +217,7 @@ fun DrawerHeader(modifier: Modifier) {
         Text(
             text = "Vice President, Retail Sales Dept",
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.bodyMedium,
             color = Color.Gray
         )
     }
