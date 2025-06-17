@@ -109,7 +109,7 @@ fun NavGraph(
                                 }
                             },
                             colors = TopAppBarDefaults.topAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.primaryContainer
+                                containerColor = MaterialTheme.colorScheme.primary
                             )
                         )
                     }
@@ -159,13 +159,12 @@ fun CenteredLogoAppBarWithNavIcon(
                     contentDescription = "Menu"
                 )
             }
-        }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer
+        )
     )
 }
-
-
-
-
 
 
 @Composable

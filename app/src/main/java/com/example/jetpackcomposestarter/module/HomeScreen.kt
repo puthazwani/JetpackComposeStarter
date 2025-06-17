@@ -12,6 +12,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.ChevronLeft
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -44,27 +46,13 @@ data class GridItem(
 )
 
 @Composable
-fun EmptyState() {
+fun HomeScreen() {
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     Column(
-        Modifier.fillMaxSize(),
-//        verticalArrangement = Arrangement.Center,
-//        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surface)
     ) {
-//        Text(
-//            modifier = Modifier.padding(8.dp),
-//            text = stringResource(id = R.string.empty_screen_title),
-//            style = MaterialTheme.typography.titleLarge,
-//            textAlign = TextAlign.Center,
-//            color = MaterialTheme.colorScheme.primary,
-//        )
-//        Text(
-//            modifier = Modifier.padding(horizontal = 8.dp),
-//            text = stringResource(id = R.string.empty_screen_subtitle),
-//            style = MaterialTheme.typography.bodySmall,
-//            textAlign = TextAlign.Center,
-//            color = MaterialTheme.colorScheme.outline,
-//        )
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -119,36 +107,18 @@ fun EmptyState() {
 }
 
 @Composable
-fun CalendarViewSample(onDateSelected: (year: Int, month: Int, dayOfMonth: Int) -> Unit) {
-    AndroidView(
-        factory = { context ->
-            CalendarView(context).apply {
-                val today = Calendar.getInstance()
-                date = today.timeInMillis // Set to current date
-                setOnDateChangeListener { _, year, month, dayOfMonth ->
-                    onDateSelected(year, month + 1, dayOfMonth) // month is 0-indexed
-                }
-            }
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-    )
-}
-
-@Composable
 fun CustomCalendar(
     selectedDate: LocalDate = LocalDate.now(),
     onDateSelected: (LocalDate) -> Unit
 ) {
     var currentMonth by remember { mutableStateOf(selectedDate.withDayOfMonth(1)) }
     val daysInMonth = currentMonth.lengthOfMonth()
-    val firstDayOfWeek = currentMonth.dayOfWeek.value % 7 // 0 = Sunday
+    val firstDayOfWeek = currentMonth.dayOfWeek.value % 7
 
     val daysOfWeek = listOf("SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT")
 
     Column(modifier = Modifier.padding(8.dp)) {
 
-        // Month and arrow controls
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -157,52 +127,22 @@ fun CustomCalendar(
             IconButton(onClick = {
                 currentMonth = currentMonth.minusMonths(1)
             }) {
-                Icon(Icons.Default.ArrowBack, contentDescription = "Previous Month")
+                Icon(Icons.Default.ChevronLeft, contentDescription = "Previous Month", tint = MaterialTheme.colorScheme.primary)
             }
 
             Text(
+                color = MaterialTheme.colorScheme.onSecondary,
                 text = currentMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy")),
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.bodyLarge
             )
 
             IconButton(onClick = {
                 currentMonth = currentMonth.plusMonths(1)
             }) {
-                Icon(Icons.Default.ArrowForward, contentDescription = "Next Month")
+                Icon(
+                    imageVector = Icons.Default.ChevronRight, contentDescription = "Next Month", tint = MaterialTheme.colorScheme.primary)
             }
         }
-
-//        Row(
-//            modifier = Modifier.fillMaxWidth(),
-//            horizontalArrangement = Arrangement.SpaceBetween,
-//            verticalAlignment = Alignment.CenterVertically
-//        ) {
-//            // Month + Year in the center
-//            Text(
-//                text = currentMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy")),
-//                style = MaterialTheme.typography.titleLarge,
-//                modifier = Modifier.weight(1f)
-//            )
-//
-//            // Navigation buttons
-//            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-//                IconButton(onClick = {
-//                    currentMonth = currentMonth.minusMonths(1)
-//                }) {
-//                    Icon(Icons.Default.ArrowBack, contentDescription = "Previous Month")
-//                }
-//                Button(onClick = {
-//                    currentMonth = LocalDate.now().withDayOfMonth(1)
-//                }) {
-//                    Text("Today")
-//                }
-//                IconButton(onClick = {
-//                    currentMonth = currentMonth.plusMonths(1)
-//                }) {
-//                    Icon(Icons.Default.ArrowForward, contentDescription = "Next Month")
-//                }
-//            }
-//        }
 
         Spacer(modifier = Modifier.height(8.dp))
         LazyVerticalGrid(
@@ -222,7 +162,7 @@ fun CustomCalendar(
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth(),
-                    color = if (isWeekend) Color.Red else Color.Black
+                    color = if (isWeekend) Color.Red else MaterialTheme.colorScheme.onSecondary
                 )
             }
             // Empty slots before the 1st
@@ -256,7 +196,7 @@ fun CustomCalendar(
                             isSelected -> Color.White
                             isToday -> MaterialTheme.colorScheme.primary
                             isWeekend -> Color.Red
-                            else -> Color.Black
+                            else -> MaterialTheme.colorScheme.onSecondary
                         }
                     )
                 }
@@ -266,9 +206,26 @@ fun CustomCalendar(
 }
 
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_NO
+)
 @Composable
-fun HomeScreenPreview() {
-    EmptyState()
+fun HomeScreenPreviewLight() {
+    JetpackComposeStarterTheme(darkTheme = false) {
+        HomeScreen()
+    }
 }
+
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+fun HomeScreenPreviewDark() {
+    JetpackComposeStarterTheme(darkTheme = true) {
+        HomeScreen()
+    }
+}
+
 

@@ -74,7 +74,7 @@ fun NavGraphBuilder.authenticatedGraph(navController: NavController) {
     ) {
         // Home
         composable(route = NavigationRoutes.Authenticated.Home.route) {
-            EmptyState()
+            HomeScreen()
         }
 
         // Travel Main Graph
@@ -93,13 +93,13 @@ fun NavGraphBuilder.authenticatedGraph(navController: NavController) {
                     RTAFListingScreen()
                 }
 
-                composable(route = NavigationRoutes.Authenticated.Travel.TravelAuthorization.PendingTAF.route) {
-                    EmptyState()
-                }
-
-                composable(route = NavigationRoutes.Authenticated.Travel.TravelAuthorization.AllTAF.route) {
-                    EmptyState()
-                }
+//                composable(route = NavigationRoutes.Authenticated.Travel.TravelAuthorization.PendingTAF.route) {
+//                    EmptyComingSoon({  })
+//                }
+//
+//                composable(route = NavigationRoutes.Authenticated.Travel.TravelAuthorization.AllTAF.route) {
+//                    EmptyComingSoon({  })
+//                }
             }
         }
     }

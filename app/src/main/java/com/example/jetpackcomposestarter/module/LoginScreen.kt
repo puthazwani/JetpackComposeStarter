@@ -1,5 +1,7 @@
 package com.example.jetpackcomposestarter.module
 
+import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,6 +24,7 @@ import androidx.compose.foundation.text.input.TextObfuscationMode
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
@@ -33,138 +36,180 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.jetpackcomposestarter.module.travel.travelAuthorisationManagers.LoginViewModel
 import com.example.jetpackcomposestarter.R
+import com.example.jetpackcomposestarter.navigation.NavigationRoutes
+import com.example.jetpackcomposestarter.shared.theme.JetpackComposeStarterTheme
 
 @Composable
 fun LoginScreen(
-//    onLoginSuccess: () -> Unit,
-    loginViewModel: LoginViewModel = viewModel(),
+//    loginViewModel: LoginViewModel = viewModel(),
     onNavigateToActivation: () -> Unit,
     onNavigateToForgotPassword: () -> Unit,
     onNavigateToAuthenticatedRoute: () -> Unit
 ) {
     var username by remember { mutableStateOf("") }
-    val cardShape = RoundedCornerShape(16.dp)
+    val cardShape = RoundedCornerShape(24.dp)
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(WindowInsets.statusBars.asPaddingValues())
-            .padding(24.dp),
-        contentAlignment = Alignment.Center
+//            .padding(WindowInsets.statusBars.asPaddingValues())
     ) {
-        Column(
+        Image(
+            painter = painterResource(id = R.drawable.bg1),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.matchParentSize()
+        )
+
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .shadow(2.dp, cardShape)
-                .clip(cardShape)
-                .background(Color.White, cardShape),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
+                .padding(24.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.bg3),
-                contentDescription = "Logo"
-            )
-            Spacer(modifier = Modifier.height(24.dp))
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Logo"
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
             Column(
-                modifier = Modifier.padding(horizontal = 24.dp, vertical = 24.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .shadow(2.dp, cardShape)
+                    .clip(cardShape)
+                    .background(MaterialTheme.colorScheme.background, cardShape),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                FormTextField(
-                    value = username,
-                    onValueChange = { username = it },
-                    label = "Username"
+                // Top image (you want this to stay)
+                Image(
+                    painter = painterResource(id = R.drawable.bg3),
+                    contentDescription = "Top Image"
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-                PasswordTextField()
-                Spacer(modifier = Modifier.height(24.dp))
-
-                Button(
-                    onClick = { onNavigateToAuthenticatedRoute() },
-                    modifier = Modifier.fillMaxWidth().height(48.dp),
-                    shape = RoundedCornerShape(12.dp)
-                ) {
-                    Text("Login")
-                }
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    AuthLink(
-                        text = "Forgot Password",
-                        onClick = onNavigateToForgotPassword
-                    )
-                    AuthLink(
-                        text = "Mobile Activation",
-                        onClick = onNavigateToActivation
-                    )
-                }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                // App logo
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo"
+                )
+
+//                Spacer(modifier = Modifier.height(32.dp))
+
+                // Login form
+                Column(
+                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Divider(modifier = Modifier.weight(1f), color = Color.LightGray)
-                    Text("  or  ", color = Color.Gray)
-                    Divider(modifier = Modifier.weight(1f), color = Color.LightGray)
-                }
+                    FormTextField(
+                        value = username,
+                        onValueChange = { username = it },
+                        label = "Username"
+                    )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                OutlinedButton(
-                    onClick = { /* Handle Microsoft sign in */ },
-                    modifier = Modifier.fillMaxWidth().height(48.dp),
-                    shape = RoundedCornerShape(12.dp)
-                ) {
-                    MicrosoftIcon(modifier = Modifier.size(20.dp))
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text("Sign in with Microsoft")
-                }
+                    PasswordTextField()
 
-                Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(24.dp))
 
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = buildAnnotatedString {
-                            withStyle(SpanStyle(color = Color.Gray, fontSize = 14.sp)) {
-                                append("© 2025 ")
-                            }
-                            withStyle(SpanStyle(color = Color(0xFF0080C5), fontSize = 14.sp)) {
-                                append("Agathae Business Solutions")
-                            }
-                            append("\n")
-                            withStyle(SpanStyle(color = Color.Gray, fontSize = 14.sp)) {
-                                append("AgathaeHR Mobile 3.0.3")
-                            }
-                        },
-                        textAlign = TextAlign.Center
+                    Button(
+                        onClick = { onNavigateToAuthenticatedRoute() },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text("Login")
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    OutlinedButton(
+                        onClick = { onNavigateToForgotPassword() },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
+                        shape = RoundedCornerShape(12.dp),
+                    ) {
+                        Text("Forgot Password")
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    OutlinedButton(
+                        onClick = { onNavigateToActivation() },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
+                        shape = RoundedCornerShape(12.dp),
+//                        colors = ButtonDefaults.buttonColors(
+//                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+//                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+//                        )
+                    ) {
+                        Text("Mobile Activation")
+                    }
+
+//                    Row(
+//                        modifier = Modifier.fillMaxWidth(),
+//                        horizontalArrangement = Arrangement.SpaceBetween
+//                    ) {
+//                        AuthLink(
+//                            text = "Forgot Password",
+//                            onClick = onNavigateToForgotPassword
+//                        )
+//                        AuthLink(
+//                            text = "Mobile Activation",
+//                            onClick = onNavigateToActivation
+//                        )
+//                    }
+
+//                    Spacer(modifier = Modifier.height(24.dp))
+//
+//                    Row(
+//                        modifier = Modifier.fillMaxWidth(),
+//                        verticalAlignment = Alignment.CenterVertically
+//                    ) {
+//                        Divider(modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.outline)
+//                        Text("  or  ", color = Color.Gray)
+//                        Divider(modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.outline)
+//                    }
+//
+//                    Spacer(modifier = Modifier.height(16.dp))
+//
+//                    OutlinedButton(
+//                        onClick = { /* Handle Microsoft sign in */ },
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .height(48.dp),
+//                        shape = RoundedCornerShape(12.dp),
+//                        colors = ButtonDefaults.outlinedButtonColors(
+//                            containerColor = MaterialTheme.colorScheme.primaryContainer
+//                        )
+//                    ) {
+//                        MicrosoftIcon(modifier = Modifier.size(20.dp))
+//                        Spacer(modifier = Modifier.width(8.dp))
+//                        Text("Sign in with Microsoft")
+//                    }
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    Footer(
+                        textColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        brandColor = MaterialTheme.colorScheme.primary
                     )
                 }
-
             }
-
         }
     }
 }
+
 
 @Composable
 fun EmptyComingSoon(onNavigateBack: () -> Unit) {
@@ -185,7 +230,7 @@ fun EmptyComingSoon(onNavigateBack: () -> Unit) {
             text = stringResource(id = R.string.empty_screen_subtitle),
             style = MaterialTheme.typography.bodySmall,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.outline,
+            color = MaterialTheme.colorScheme.secondary,
         )
         AuthLink(
             text = "Back to Login",
@@ -202,86 +247,94 @@ fun ForgotPasswordScreen(onNavigateBack: () -> Unit, onNavigateToAuthenticatedRo
     val cardShape = RoundedCornerShape(16.dp)
 
     Box(
-        modifier = Modifier.fillMaxSize().padding(24.dp),
-        contentAlignment = Alignment.Center
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(WindowInsets.statusBars.asPaddingValues())
     ) {
-        Column(
+        Image(
+            painter = painterResource(id = R.drawable.bg1),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.matchParentSize()
+        )
+
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .shadow(2.dp, cardShape)
-                .clip(cardShape)
-                .background(Color.White, cardShape),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
+                .padding(24.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.bg3),
-                contentDescription = "Logo"
-            )
-            Spacer(modifier = Modifier.height(24.dp))
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Logo"
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
             Column(
-                modifier = Modifier.padding(horizontal = 24.dp, vertical = 24.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .shadow(2.dp, cardShape)
+                    .clip(cardShape)
+                    .background(MaterialTheme.colorScheme.background, cardShape),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                FormTextField(
-                    value = username,
-                    onValueChange = { username = it },
-                    label = "Username"
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                FormTextField(
-                    value = employeeNo,
-                    onValueChange = { employeeNo = it },
-                    label = "Employee No"
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                FormTextField(
-                    value = identificationNo,
-                    onValueChange = { identificationNo = it },
-                    label = "NRIC"
+                Image(
+                    painter = painterResource(id = R.drawable.bg3),
+                    contentDescription = "Logo"
                 )
                 Spacer(modifier = Modifier.height(24.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo"
+                )
 
-                Button(
-                    onClick = { onNavigateToAuthenticatedRoute() },
-                    modifier = Modifier.fillMaxWidth().height(48.dp),
-                    shape = RoundedCornerShape(12.dp)
+                Column(
+                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("Reset Password")
-                }
-                Spacer(modifier = Modifier.height(12.dp))
+                    FormTextField(
+                        value = username,
+                        onValueChange = { username = it },
+                        label = "Username"
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    FormTextField(
+                        value = employeeNo,
+                        onValueChange = { employeeNo = it },
+                        label = "Employee No"
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    FormTextField(
+                        value = identificationNo,
+                        onValueChange = { identificationNo = it },
+                        label = "NRIC"
+                    )
+                    Spacer(modifier = Modifier.height(24.dp))
 
-                OutlinedButton(
-                    onClick = { onNavigateBack() },
-                    modifier = Modifier.fillMaxWidth().height(48.dp),
-                    shape = RoundedCornerShape(12.dp)
-                ) {
-                    Text("Login")
-                }
+                    Button(
+                        onClick = { onNavigateToAuthenticatedRoute() },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text("Reset Password")
+                    }
+                    Spacer(modifier = Modifier.height(12.dp))
 
-                Spacer(modifier = Modifier.height(12.dp))
+                    OutlinedButton(
+                        onClick = { onNavigateBack() },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
+                        shape = RoundedCornerShape(12.dp),
+//                        colors = ButtonDefaults.buttonColors(
+//                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+//                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+//                        )
+                    ) {
+                        Text("Login")
+                    }
 
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = buildAnnotatedString {
-                            withStyle(SpanStyle(color = Color.Gray, fontSize = 14.sp)) {
-                                append("© 2025 ")
-                            }
-                            withStyle(SpanStyle(color = Color(0xFF0080C5), fontSize = 14.sp)) {
-                                append("Agathae Business Solutions")
-                            }
-                            append("\n")
-                            withStyle(SpanStyle(color = Color.Gray, fontSize = 14.sp)) {
-                                append("AgathaeHR Mobile 3.0.3")
-                            }
-                        },
-                        textAlign = TextAlign.Center
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    Footer(
+                        textColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        brandColor = MaterialTheme.colorScheme.primary
                     )
                 }
             }
@@ -303,7 +356,10 @@ fun FormTextField(
         value = value,
         onValueChange = onValueChange,
         singleLine = true,
-        textStyle = LocalTextStyle.current.copy(fontSize = 16.sp),
+        textStyle = LocalTextStyle.current.copy(
+            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onTertiaryContainer
+        ),
         keyboardOptions = keyboardOptions,
         modifier = modifier
             .fillMaxWidth()
@@ -311,9 +367,13 @@ fun FormTextField(
         decorationBox = { innerTextField ->
             Box(
                 modifier = Modifier
+                    .background(
+                        color = MaterialTheme.colorScheme.tertiaryContainer,
+                        shape = RoundedCornerShape(12.dp)
+                    )
                     .border(
                         width = 1.5.dp,
-                        color = if (isFocused) MaterialTheme.colorScheme.primary else Color.LightGray,
+                        color = if (isFocused) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
                         shape = RoundedCornerShape(12.dp)
                     )
                     .padding(horizontal = 16.dp, vertical = 16.dp)
@@ -327,7 +387,6 @@ fun FormTextField(
     )
 }
 
-
 @Composable
 fun PasswordTextField() {
     val state = remember { TextFieldState() }
@@ -340,13 +399,20 @@ fun PasswordTextField() {
         modifier = Modifier
             .fillMaxWidth()
             .onFocusChanged { focusState -> isFocused = focusState.isFocused },
-        textStyle = TextStyle(fontSize = 16.sp),
+        textStyle = LocalTextStyle.current.copy(
+            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onPrimaryContainer
+        ),
         decorator = { innerTextField ->
             Box(
                 modifier = Modifier
+                    .background(
+                        color = MaterialTheme.colorScheme.tertiaryContainer,
+                        shape = RoundedCornerShape(12.dp)
+                    )
                     .border(
                         width = 1.5.dp,
-                        color = if (isFocused) MaterialTheme.colorScheme.primary else Color.LightGray,
+                        color = if (isFocused) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
                         shape = RoundedCornerShape(12.dp)
                     )
                     .padding(horizontal = 16.dp, vertical = 16.dp)
@@ -365,6 +431,7 @@ fun PasswordTextField() {
                     Icon(
                         imageVector = if (showPassword) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                         contentDescription = "Toggle password visibility",
+                        tint = Color.Gray,
                         modifier = Modifier
                             .size(24.dp)
                             .clickable { showPassword = !showPassword }
@@ -400,12 +467,96 @@ fun AuthLink(text: String, onClick: () -> Unit) {
     )
 }
 
+@Composable
+fun Footer(
+    modifier: Modifier = Modifier,
+    textColor: Color = Color.Gray,
+    brandColor: Color = Color(0xFF0080C5)
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = buildAnnotatedString {
+                withStyle(SpanStyle(color = textColor, fontSize = 14.sp)) {
+                    append("© 2025 ")
+                }
+                withStyle(SpanStyle(color = brandColor, fontSize = 14.sp)) {
+                    append("Agathae Business Solutions")
+                }
+                append("\n")
+                withStyle(SpanStyle(color = textColor, fontSize = 14.sp)) {
+                    append("AgathaeHR Mobile 3.0.3")
+                }
+            },
+            textAlign = TextAlign.Center
+        )
+    }
+}
 
-//@Preview(showBackground = true)
+
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Composable
+fun LoginScreenLightPreview() {
+    JetpackComposeStarterTheme(darkTheme = false) {
+        LoginScreen(
+            onNavigateToActivation = {  },
+            onNavigateToForgotPassword = {  },
+            onNavigateToAuthenticatedRoute = {  }
+        )
+    }
+}
+//
+//@Preview(
+//    showBackground = true,
+//    uiMode = Configuration.UI_MODE_NIGHT_YES
+//)
 //@Composable
-//fun LoginScreenPreview() {
-//    JetpackComposeTheme {
-//        LoginScreen()
+//fun LoginScreenDarkPreview() {
+//    JetpackComposeStarterTheme(darkTheme = true) {
+//        LoginScreen(
+//            onNavigateToActivation = {  },
+//            onNavigateToForgotPassword = {  },
+//            onNavigateToAuthenticatedRoute = {  }
+//        )
 //    }
 //}
+
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Composable
+fun ForgotPasswordScreenLightPreview() {
+    JetpackComposeStarterTheme(darkTheme = false) {
+        ForgotPasswordScreen(
+            onNavigateBack = {  },
+            onNavigateToAuthenticatedRoute = {  }
+        )
+    }
+}
+
+//@Preview(
+//    showBackground = true,
+//    uiMode = Configuration.UI_MODE_NIGHT_YES
+//)
+//@Composable
+//fun LoginScreenDarkPreview() {
+//    JetpackComposeStarterTheme(darkTheme = true) {
+//        LoginScreen(
+//            onNavigateToActivation = {  },
+//            onNavigateToForgotPassword = {  },
+//            onNavigateToAuthenticatedRoute = {  }
+//        )
+//    }
+//}
+
+
+
+
+
 
