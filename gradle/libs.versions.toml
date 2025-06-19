@@ -2,6 +2,7 @@
 kotlin = "2.0.21"
 gradle = "8.10.1"
 ksp = "2.1.20-2.0.1"
+kapt = "1.9.23"
 hilt = "2.55"
 composeBom = "2025.06.00"
 compose = "1.5.15"
@@ -23,6 +24,7 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 
 [libraries]
 androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }

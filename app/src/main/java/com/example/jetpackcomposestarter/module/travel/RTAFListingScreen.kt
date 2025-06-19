@@ -4,7 +4,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForwardIos
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
@@ -16,7 +16,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.jetpackcomposestarter.shared.components.BottomNavItem
 import com.example.jetpackcomposestarter.shared.components.DateIconView
+import com.example.jetpackcomposestarter.shared.components.RTAFBottomNavigationBar
+import com.example.jetpackcomposestarter.shared.theme.JetpackComposeStarterTheme
 import java.time.LocalDate
 
 
@@ -30,19 +33,28 @@ fun RTAFListingScreen(
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
+    val rtafNavItems = listOf(
+        BottomNavItem("My TAF", Icons.Default.CalendarToday),
+        BottomNavItem("My Pending TAF", Icons.Default.Description, badgeCount = 3),
+        BottomNavItem("All TAF", Icons.Default.Description)
+    )
+    var selectedTab by remember { mutableStateOf(0) }
+
     Scaffold(
-//        topBar = {
-//            SimpleTopAppBar()
-//        },
-//        snackbarHost = {
-//            SnackbarHost(
-//                hostState = snackbarHostState
-//            )
-//        }
+        bottomBar = {
+            RTAFBottomNavigationBar(
+                items = rtafNavItems,
+                selectedIndex = selectedTab,
+                onItemSelected = { selectedTab = it }
+            )
+        },
     ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
         ) {
+
             Text(
                 text = "2023",
                 style = MaterialTheme.typography.titleLarge,
@@ -60,8 +72,27 @@ fun RTAFListingScreen(
                 applicationStatus = "Rejected",
                 modifier = Modifier.fillMaxWidth()
             )
+
+            Text(
+                text = "2022",
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(top = 0.dp, start = 16.dp, end = 16.dp, bottom = 4.dp)
+            )
+
+            RTAFRowItem(
+                item = listOf("Option 1", "Option 2", "Option 3"),
+                startDate = LocalDate.of(2023, 6, 1),
+                endDate = LocalDate.of(2023, 6, 3),
+                refNo = "00899928398",
+                destination = "Masjid Damansara Perdana",
+                requestedAmount = 0.00,
+                approvedAmount = 0.00,
+                applicationStatus = "Rejected",
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
+
 }
 
 
@@ -175,5 +206,7 @@ fun statusToColor(applicationStatus: String): Color {
 @Preview(showBackground = true)
 @Composable
 fun RTAFListingScreenPreview() {
+    JetpackComposeStarterTheme {
         RTAFListingScreen()
+    }
 }
