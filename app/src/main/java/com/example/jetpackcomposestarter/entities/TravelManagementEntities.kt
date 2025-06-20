@@ -6,7 +6,10 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import androidx.room.TypeConverter
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 //Travel Authorisation
 //TAF Form
@@ -154,3 +157,21 @@ data class ItineraryItemWithAttachment(
     val attachment: BaseAttachment?
 )
 
+class Converters {
+
+    @TypeConverter
+    fun fromDate(date: Date?): String? {
+        return date?.let {
+            val dateFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss 'GMT'Z yyyy", Locale.getDefault())
+            dateFormat.format(it)
+        }
+    }
+
+    @TypeConverter
+    fun toDate(date: String?): Date? {
+        return date?.let {
+            val dateFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss 'GMT'Z yyyy", Locale.getDefault())
+            dateFormat.parse(it)
+        }
+    }
+}

@@ -12,8 +12,10 @@ import com.example.jetpackcomposestarter.entities.TravelAuthorisationEntity
 import com.example.jetpackcomposestarter.entities.TravelAuthorisationWithItineraryItem
 import com.example.jetpackcomposestarter.entities.TravelAuthorisationWithTravellerItem
 
-// Data Access Object
-// This is where the database CRUD operations are defined
+/**
+ * Data Access Object.
+ * This is where the database CRUD operations are defined.
+ */
 
 @Dao
 interface AppCoreDao {
