@@ -1,9 +1,13 @@
-package com.example.jetpackcomposestarter
+package com.example.jetpackcomposestarter.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.jetpackcomposestarter.entities.*
+import com.example.jetpackcomposestarter.data.local.entities.BaseAttachment
+import com.example.jetpackcomposestarter.data.local.entities.Converters
+import com.example.jetpackcomposestarter.data.local.entities.TafApplicationItineraryEntity
+import com.example.jetpackcomposestarter.data.local.entities.TafApplicationTravellerEntity
+import com.example.jetpackcomposestarter.data.local.entities.TravelAuthorisationEntity
 
 /**
  * Main Room database class for the application.

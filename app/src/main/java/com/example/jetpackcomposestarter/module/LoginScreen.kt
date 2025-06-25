@@ -1,7 +1,6 @@
 package com.example.jetpackcomposestarter.module
 
 import android.content.res.Configuration
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,15 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.text.BasicSecureTextField
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.TextObfuscationMode
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -38,15 +33,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.jetpackcomposestarter.module.travel.travelAuthorisationManagers.LoginViewModel
 import com.example.jetpackcomposestarter.R
-import com.example.jetpackcomposestarter.navigation.NavigationRoutes
+import com.example.jetpackcomposestarter.shared.components.FormTextField
 import com.example.jetpackcomposestarter.shared.theme.JetpackComposeStarterTheme
 
 @Composable
@@ -342,50 +334,7 @@ fun ForgotPasswordScreen(onNavigateBack: () -> Unit, onNavigateToAuthenticatedRo
     }
 }
 
-@Composable
-fun FormTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    label: String,
-    modifier: Modifier = Modifier,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
-) {
-    var isFocused by remember { mutableStateOf(false) }
 
-    BasicTextField(
-        value = value,
-        onValueChange = onValueChange,
-        singleLine = true,
-        textStyle = LocalTextStyle.current.copy(
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onTertiaryContainer
-        ),
-        keyboardOptions = keyboardOptions,
-        modifier = modifier
-            .fillMaxWidth()
-            .onFocusChanged { focusState -> isFocused = focusState.isFocused },
-        decorationBox = { innerTextField ->
-            Box(
-                modifier = Modifier
-                    .background(
-                        color = MaterialTheme.colorScheme.tertiaryContainer,
-                        shape = RoundedCornerShape(12.dp)
-                    )
-                    .border(
-                        width = 1.5.dp,
-                        color = if (isFocused) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
-                        shape = RoundedCornerShape(12.dp)
-                    )
-                    .padding(horizontal = 16.dp, vertical = 16.dp)
-            ) {
-                if (value.isEmpty()) {
-                    Text(label, color = Color.Gray)
-                }
-                innerTextField()
-            }
-        }
-    )
-}
 
 @Composable
 fun PasswordTextField() {

@@ -1,4 +1,4 @@
-package com.example.jetpackcomposestarter.entities
+package com.example.jetpackcomposestarter.data.local.entities
 //import Attachment
 import androidx.room.Entity
 import androidx.room.PrimaryKey

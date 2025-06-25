@@ -1,4 +1,4 @@
-package com.example.jetpackcomposestarter.module.travel.travelAuthorisationManagers
+package com.example.jetpackcomposestarter.module
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

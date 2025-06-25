@@ -11,7 +11,8 @@
     <string name="time">Time</string>
     <string name="travel">Travel</string>
     <string name="qr_scan">QR Scan</string>
-
+    <string name="db_name">AppCoreDatabase</string>
+    <string name="empty_list_content">No Record(s) found</string>
     <string name="empty_screen_title">Screen under construction</string>
     <string name="empty_screen_subtitle">Coming soon! While this screen is still under construction</string>
 </resources>

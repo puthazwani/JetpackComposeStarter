@@ -554,7 +554,7 @@ fun EventCard(
                 ) {
                     // Avatar list
                     Row(horizontalArrangement = Arrangement.spacedBy((-8).dp)) {
-                        val displayAvatars = people.take(3)
+                        val displayAvatars = people.take(4)
                         val remainingCount = people.size - displayAvatars.size
 
                         displayAvatars.forEach { avatarRes ->

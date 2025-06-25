@@ -1,12 +1,7 @@
-package com.example.jetpackcomposestarter.entities
+package com.example.jetpackcomposestarter.data.local.entities
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
-import androidx.room.PrimaryKey
-import androidx.room.Relation
-import androidx.room.TypeConverter
+import androidx.room.*
+import com.example.jetpackcomposestarter.module.travel.tafmanagers.TravelAuthorization
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -175,3 +170,56 @@ class Converters {
         }
     }
 }
+
+fun TravelAuthorisationEntity.toModel() = TravelAuthorization(
+    id = this.id,
+    employeeId = this.employeeId,
+    employeeNo = this.employeeNo,
+    name = null,
+    localOversea = this.localOversea,
+    destination = this.destination,
+    dateStart = this.dateStart,
+    dateEnd = this.dateEnd,
+    transport = this.transport ?: "",
+    cashAdvance = null,
+    advanceAmount = null,
+    remarks = this.remarks ?: "",
+    personId = this.personId ?: 0L,
+    dateCreated = this.dateCreated,
+    createdBy = this.createdBy,
+    dateModified = this.dateModified,
+    modifiedBy = this.modifiedBy,
+    dateSubmitted = this.dateSubmitted,
+    submittedByPersonId = this.submittedByPersonId,
+    applicationSource = this.applicationSource,
+    applicationStatus = this.applicationStatus,
+    applicationReferenceNumber = this.applicationReferenceNumber,
+    currentApprovers = this.currentApprovers,
+    dateCurrentApprovalStart = this.dateCurrentApprovalStart,
+    dateWorkflowCompleted = this.dateWorkflowCompleted,
+    approverComments = this.workflowComment,
+    remarksBackOffice = null,
+    inbound = this.inbound,
+    outbound = this.outbound,
+    booked = null,
+    bookedDate = null,
+    chargedToCompanyId = null,
+    chargedToCostCenterId = null,
+    returnToOffice = null,
+    applicationFolderId = null,
+    miscText1 = null,
+    miscText2 = null,
+    miscText3 = null,
+    miscBigText1 = null,
+    miscBigText2 = null,
+    miscBigText3 = null,
+    miscNum1 = null,
+    miscNum2 = null,
+    miscNum3 = null,
+    miscDate1 = null,
+    miscDate2 = null,
+    miscDate3 = null,
+    miscBool1 = null,
+    miscBool2 = null,
+    miscBool3 = null
+)

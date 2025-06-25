@@ -5,8 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.jetpackcomposestarter.module.*
-import com.example.jetpackcomposestarter.module.travel.*
-import com.example.jetpackcomposestarter.navigation.NavigationRoutes
+import com.example.jetpackcomposestarter.module.travel.tafViews.TAFListingScreen
 
 /**
  * This function defines the navigation graph specifically for the authentication flow.
@@ -90,8 +89,23 @@ fun NavGraphBuilder.authenticatedGraph(navController: NavController) {
             ) {
 
                 composable(route = NavigationRoutes.Authenticated.Travel.TravelAuthorization.MyTAF.route) {
-                    RTAFListingScreen()
+                    TAFListingScreen(
+                        navigateToTAFFormDetailsScreen = {
+                            navController.navigate("taf_form/${it.id}")
+                        }
+                    )
                 }
+
+//                composable(
+//                    route = NavigationRoutes.Authenticated.Travel.TravelAuthorization.Detail.route + "/{id}",
+//                    arguments = listOf(navArgument("id") { type = NavType.LongType })
+//                ) { backStackEntry ->
+//                    val id = backStackEntry.arguments?.getLong("id")
+//                    if (id != null) {
+//                        TravelFormDetailScreen(formId = id)
+//                    }
+//                }
+
 
 //                composable(route = NavigationRoutes.Authenticated.Travel.TravelAuthorization.PendingTAF.route) {
 //                    EmptyComingSoon({  })

@@ -1,16 +1,18 @@
-package com.example.jetpackcomposestarter
+package com.example.jetpackcomposestarter.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.OnConflictStrategy.Companion.IGNORE
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import com.example.jetpackcomposestarter.entities.TafApplicationItineraryEntity
-import com.example.jetpackcomposestarter.entities.TafApplicationTravellerEntity
-import com.example.jetpackcomposestarter.entities.TravelAuthorisationEntity
-import com.example.jetpackcomposestarter.entities.TravelAuthorisationWithItineraryItem
-import com.example.jetpackcomposestarter.entities.TravelAuthorisationWithTravellerItem
+import com.example.jetpackcomposestarter.data.local.entities.TafApplicationItineraryEntity
+import com.example.jetpackcomposestarter.data.local.entities.TafApplicationTravellerEntity
+import com.example.jetpackcomposestarter.data.local.entities.TravelAuthorisationEntity
+import com.example.jetpackcomposestarter.data.local.entities.TravelAuthorisationWithItineraryItem
+import com.example.jetpackcomposestarter.data.local.entities.TravelAuthorisationWithTravellerItem
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Data Access Object.
@@ -23,12 +25,21 @@ interface AppCoreDao {
     // Travel Authorisation
     // Parent Form
     // Insert multiple TAF application form records into the database
+    @Insert(onConflict = IGNORE)
+    suspend fun insertTafForm(tafForm: TravelAuthorisationEntity)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE) // If a record with the same primary key already exists, it will be replaced
     fun saveTAFForm(applicationForms: List<TravelAuthorisationEntity>): List<Long>
 
     // Update a single existing TAF application form in the database
     @Update
     fun updateTAFForm(applicationForm: TravelAuthorisationEntity)
+
+    @Query("SELECT * FROM taf_application_table ORDER BY id ASC")
+    fun getTAFListing(): Flow<List<TravelAuthorisationEntity>>
+
+    @Query("SELECT * FROM taf_application_table WHERE id = :id")
+    suspend fun getTafFormById(id: Int): TravelAuthorisationEntity
 
     @Query("SELECT * FROM taf_application_table WHERE id = :id")
     suspend fun getTAFForm(id: Long): TravelAuthorisationEntity
