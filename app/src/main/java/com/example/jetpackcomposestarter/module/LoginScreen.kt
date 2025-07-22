@@ -364,7 +364,7 @@ fun PasswordTextField() {
                         color = if (isFocused) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
                         shape = RoundedCornerShape(12.dp)
                     )
-                    .padding(horizontal = 16.dp, vertical = 16.dp)
+                    .padding(horizontal = 12.dp, vertical = 12.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),

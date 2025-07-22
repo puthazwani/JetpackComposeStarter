@@ -1,17 +1,7 @@
 package com.example.jetpackcomposestarter.data.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.OnConflictStrategy.Companion.IGNORE
-import androidx.room.Query
-import androidx.room.Transaction
-import androidx.room.Update
-import com.example.jetpackcomposestarter.data.local.entities.TafApplicationItineraryEntity
-import com.example.jetpackcomposestarter.data.local.entities.TafApplicationTravellerEntity
-import com.example.jetpackcomposestarter.data.local.entities.TravelAuthorisationEntity
-import com.example.jetpackcomposestarter.data.local.entities.TravelAuthorisationWithItineraryItem
-import com.example.jetpackcomposestarter.data.local.entities.TravelAuthorisationWithTravellerItem
+import androidx.room.*
+import com.example.jetpackcomposestarter.data.local.entities.*
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -25,11 +15,8 @@ interface AppCoreDao {
     // Travel Authorisation
     // Parent Form
     // Insert multiple TAF application form records into the database
-    @Insert(onConflict = IGNORE)
-    suspend fun insertTafForm(tafForm: TravelAuthorisationEntity)
-
     @Insert(onConflict = OnConflictStrategy.REPLACE) // If a record with the same primary key already exists, it will be replaced
-    fun saveTAFForm(applicationForms: List<TravelAuthorisationEntity>): List<Long>
+    suspend fun saveTAFForm(applicationForms: List<TravelAuthorisationEntity>): List<Long>
 
     // Update a single existing TAF application form in the database
     @Update

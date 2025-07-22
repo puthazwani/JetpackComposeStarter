@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -19,6 +20,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcomposestarter.AppDrawer
 import com.example.jetpackcomposestarter.R
+import com.example.jetpackcomposestarter.navigation.graph.AppRoutes
+import com.example.jetpackcomposestarter.navigation.graph.authGraph
+import com.example.jetpackcomposestarter.navigation.graph.mainGraph
+import com.example.jetpackcomposestarter.shared.components.AppTopBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -40,18 +45,18 @@ fun NavGraph(
     drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
 ) {
     val currentNavBackStackEntry by navController.currentBackStackEntryAsState()
-//    val currentRoute = currentNavBackStackEntry?.destination?.route ?: AllDestinations.HOME
     val currentRoute = currentNavBackStackEntry?.destination?.route
-        ?: NavigationRoutes.Authenticated.Home.route
+        ?: AppRoutes.Main.Home
 
 
 //    val navigationActions = remember(navController) {
 //        AppNavigationActions(navController)
 //    }
 
-    val showAppScaffold = currentRoute != NavigationRoutes.Unauthenticated.Login.route &&
-            currentRoute != NavigationRoutes.Unauthenticated.Activation.route &&
-            currentRoute != NavigationRoutes.Unauthenticated.ForgotPassword.route
+    val showAppScaffold = currentRoute != AppRoutes.Auth.Login &&
+            currentRoute != AppRoutes.Auth.Activation &&
+            currentRoute != AppRoutes.Auth.ForgotPassword
+
 
     if (showAppScaffold) {
         ModalNavigationDrawer(
@@ -60,10 +65,10 @@ fun NavGraph(
                     route = currentRoute,
                     modifier = Modifier,
                     navigateToHome = {
-                        navController.safeNavigate(NavigationRoutes.Authenticated.Home.route)
+                        navController.safeNavigate(AppRoutes.Main.Home)
                     },
                     navigateToTravel = {
-                        navController.safeNavigate(NavigationRoutes.Authenticated.Travel.TravelAuthorization.MyTAF.route)
+                        navController.safeNavigate(AppRoutes.Travel.Authorization.MyTaf)
                     },
                     closeDrawer = { coroutineScope.launch { drawerState.close() } },
                 )
@@ -88,24 +93,59 @@ fun NavGraph(
 //                    )
 //                },
                 topBar = {
-                    if (currentRoute == NavigationRoutes.Authenticated.Home.route) {
-                        CenteredLogoAppBarWithNavIcon {
-                            coroutineScope.launch { drawerState.open() }
+                    when (currentRoute) {
+                        AppRoutes.Main.Home -> {
+                            CenteredLogoAppBarWithNavIcon {
+                                coroutineScope.launch { drawerState.open() }
+                            }
                         }
-                    } else {
-                        TopAppBar(
-                            title = { Text(text = currentRoute) },
-                            navigationIcon = {
-                                IconButton(onClick = {
-                                    coroutineScope.launch { drawerState.open() }
-                                }) {
-                                    Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+
+                        AppRoutes.Travel.Authorization.MyTaf -> {
+                            AppTopBar(
+                                title = "My TAF",
+                                onNavClick = { coroutineScope.launch { drawerState.open() } },
+                                showSearch = true,
+                                showAdd = true,
+                                onSearchClick = { /* handle search */ },
+                                onAddClick = {
+                                    navController.navigate(AppRoutes.Travel.Authorization.TafFormNew)
                                 }
-                            },
-                            colors = TopAppBarDefaults.topAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.primary
+
                             )
-                        )
+                        }
+
+                        AppRoutes.Travel.Authorization.TafFormNew -> {
+                            AppTopBar(
+                                title = "Travel Authorization Form",
+                                navigationIcon = {
+                                    IconButton(onClick = { navController.popBackStack() }) {
+                                        Icon(
+                                            imageVector = Icons.Filled.ArrowBack,
+                                            contentDescription = "Back"
+                                        )
+                                    }
+                                },
+                                showSearch = false,
+                                showAdd = false
+                            )
+                        }
+
+                        else -> {
+                            TopAppBar(
+                                title = { Text(text = currentRoute) },
+                                navigationIcon = {
+                                    IconButton(onClick = {
+                                        coroutineScope.launch { drawerState.open() }
+                                    }) {
+                                        Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+                                    }
+                                },
+                                colors = TopAppBarDefaults.topAppBarColors(
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                                )
+                            )
+                        }
                     }
                 },
                 modifier = Modifier
@@ -160,7 +200,6 @@ fun CenteredLogoAppBarWithNavIcon(
     )
 }
 
-
 @Composable
 fun AppNavHost(
     navController: NavHostController,
@@ -168,12 +207,14 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = NavigationRoutes.Unauthenticated.NavigationRoute.route,
+        startDestination = AppRoutes.Auth.Root,
         modifier = modifier
     ) {
-        unauthenticatedGraph(navController = navController)
-        authenticatedGraph(navController = navController)
+        authGraph(navController)
+        mainGraph(navController)
     }
 }
+
+
 
 

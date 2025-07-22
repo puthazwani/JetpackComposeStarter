@@ -48,27 +48,31 @@ enum class EventType {
 
 @Composable
 fun HomeScreen() {
-    val itemsList = listOf(
-        GridItem(R.drawable.pendingtask, ModulePendingItems, "Pend. Tasks"),
-        GridItem(R.drawable.calendar, ModuleLeave, "Leave"),
-        GridItem(R.drawable.claims, ModuleClaims, "Claims"),
-        GridItem(R.drawable.calendar, ModuleSchedule, "Schedule"),
-        GridItem(R.drawable.payslip, ModulePayslip, "Payslip"),
-        GridItem(R.drawable.travel, ModuleTravel, "Travel"),
-        GridItem(R.drawable.payslip, ModulePayslip, "Overtime"),
-        GridItem(R.drawable.claims, ModuleClaims, "Bulk Overtime"),
-    )
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surface)
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp)
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
+        val itemsList = listOf(
+            GridItem(R.drawable.pendingtask, ModulePendingItems, "Pend. Tasks"),
+            GridItem(R.drawable.calendar, ModuleLeave, "Leave"),
+            GridItem(R.drawable.claims, ModuleClaims, "Claims"),
+            GridItem(R.drawable.calendar, ModuleSchedule, "Schedule"),
+            GridItem(R.drawable.payslip, ModulePayslip, "Payslip"),
+            GridItem(R.drawable.travel, ModuleTravel, "Travel"),
+            GridItem(R.drawable.payslip, ModulePayslip, "Overtime"),
+            GridItem(R.drawable.claims, ModuleClaims, "Bulk Overtime"),
+        )
 
-        // User Info
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.surface)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp)
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // User Info
 //        Row(verticalAlignment = Alignment.CenterVertically) {
 //            Image(
 //                painter = painterResource(id = R.drawable.user),
@@ -86,224 +90,229 @@ fun HomeScreen() {
 
 //        Spacer(modifier = Modifier.height(24.dp))
 
-        // Attendance Overview
-        Card(
-            modifier = Modifier
-                .fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            shape = RoundedCornerShape(12.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-        ) {
-            Column(
+            // Attendance Overview
+//        Card(
+//            modifier = Modifier
+//                .fillMaxWidth(),
+//            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+//            shape = RoundedCornerShape(12.dp),
+//            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+//        ) {
+//            Column(
+//                modifier = Modifier
+//                    .padding(16.dp)
+//                    .fillMaxWidth(),
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//                Text("Attendance Overview", style = MaterialTheme.typography.titleMedium)
+//                Spacer(modifier = Modifier.height(8.dp))
+//                Card(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+//                    shape = RoundedCornerShape(8.dp),
+//                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+//                ) {
+//                    Row(
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(vertical = 16.dp),
+//                        horizontalArrangement = Arrangement.SpaceEvenly
+//                    ) {
+//                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//                            Text("Clock In", style = MaterialTheme.typography.bodyMedium)
+//                            Text("--:--", style = MaterialTheme.typography.bodyMedium)
+//                        }
+//                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//                            Text("Clock Out", style = MaterialTheme.typography.bodyMedium)
+//                            Text("--:--", style = MaterialTheme.typography.bodyMedium)
+//                        }
+//                    }
+//                }
+//                Spacer(modifier = Modifier.height(16.dp))
+//
+//                // Action Buttons
+//                Row(
+//                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    listOf(
+//                        Pair("QR Scan", R.drawable.qrscan),
+//                        Pair("Check-In", R.drawable.checkin)
+//                    ).forEach { (label, icon) ->
+//                        Card(
+//                            modifier = Modifier
+//                                .weight(1f)
+//                                .height(50.dp)
+//                                .clickable { },
+//                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
+//                            shape = RoundedCornerShape(12.dp),
+//                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+//                        ) {
+//                            Row(
+//                                modifier = Modifier.fillMaxSize(),
+//                                verticalAlignment = Alignment.CenterVertically,
+//                                horizontalArrangement = Arrangement.Center
+//                            ) {
+//                                Image(
+//                                    painter = painterResource(id = icon),
+//                                    contentDescription = label,
+//                                    modifier = Modifier.size(24.dp),
+//                                )
+//                                Spacer(modifier = Modifier.width(8.dp))
+//                                Text(
+//                                    label,
+//                                    style = MaterialTheme.typography.labelMedium,
+//                                    color = Color.White
+//                                )
+//                            }
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
+//
+//        Spacer(modifier = Modifier.height(16.dp))
+
+            // Annual Leave Balance
+//        Card(
+//            modifier = Modifier
+//                .fillMaxWidth(),
+//            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+//            shape = RoundedCornerShape(12.dp),
+//            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+//        ) {
+//            Column(
+//                modifier = Modifier
+//                    .padding(16.dp)
+//                    .fillMaxWidth(),
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//                Card(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+//                    shape = RoundedCornerShape(8.dp),
+//                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+//                ) {
+//                    Row(
+//                        modifier = Modifier
+//                            .padding(16.dp)
+//                            .fillMaxWidth(),
+//                        verticalAlignment = Alignment.CenterVertically,
+//                        horizontalArrangement = Arrangement.SpaceBetween
+//                    ) {
+//                        // Left: Icon + Texts
+//                        Row(verticalAlignment = Alignment.CenterVertically) {
+//                            // Circular icon background
+//                            Box(
+//                                modifier = Modifier
+//                                    .size(40.dp)
+//                                    .background(MaterialTheme.colorScheme.primary, shape = CircleShape),
+//                                contentAlignment = Alignment.Center
+//                            ) {
+//                                Image(
+//                                    painter = painterResource(id = R.drawable.calendar),
+//                                    contentDescription = "Calendar",
+//                                    modifier = Modifier.size(24.dp)
+//                                )
+//
+//                            }
+//
+//                            Spacer(modifier = Modifier.width(12.dp))
+//
+//                            Column {
+//                                Row(verticalAlignment = Alignment.CenterVertically) {
+//                                    Text(
+//                                        text = "12.0 Days",
+//                                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+//                                        color = MaterialTheme.colorScheme.onSurface
+//                                    )
+//                                    Spacer(modifier = Modifier.width(4.dp))
+//                                    Text(
+//                                        text = "/ 18.0 Days",
+//                                        style = MaterialTheme.typography.labelMedium,
+//                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+//                                    )
+//                                }
+//                                Text(
+//                                    "Annual Leave Balance",
+//                                    style = MaterialTheme.typography.labelMedium,
+//                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+//                                )
+//                            }
+//                        }
+//
+//                        Icon(
+//                            imageVector = Icons.Default.ChevronRight,
+//                            contentDescription = "Go",
+//                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+//                        )
+//                    }
+//
+//                }
+//            }
+//        }
+
+//        Spacer(modifier = Modifier.height(16.dp))
+//
+////         Module Overview
+//        Text("Module Overview", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onTertiaryContainer)
+//        Spacer(modifier = Modifier.height(8.dp))
+
+            LazyRow(
                 modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text("Attendance Overview", style = MaterialTheme.typography.titleMedium)
-                Spacer(modifier = Modifier.height(8.dp))
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                    shape = RoundedCornerShape(8.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp),
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("Clock In", style = MaterialTheme.typography.bodyMedium)
-                            Text("--:--", style = MaterialTheme.typography.bodyMedium)
-                        }
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("Clock Out", style = MaterialTheme.typography.bodyMedium)
-                            Text("--:--", style = MaterialTheme.typography.bodyMedium)
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Action Buttons
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    listOf(
-                        Pair("QR Scan", R.drawable.qrscan),
-                        Pair("Check-In", R.drawable.checkin)
-                    ).forEach { (label, icon) ->
-                        Card(
-                            modifier = Modifier
-                                .weight(1f)
-                                .height(50.dp)
-                                .clickable { },
-                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
-                            shape = RoundedCornerShape(12.dp),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-                        ) {
-                            Row(
-                                modifier = Modifier.fillMaxSize(),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-                                Image(
-                                    painter = painterResource(id = icon),
-                                    contentDescription = label,
-                                    modifier = Modifier.size(24.dp),
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    label,
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = Color.White
-                                )
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Annual Leave Balance
-        Card(
-            modifier = Modifier
-                .fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            shape = RoundedCornerShape(12.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                    shape = RoundedCornerShape(8.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        // Left: Icon + Texts
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            // Circular icon background
-                            Box(
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .background(MaterialTheme.colorScheme.primary, shape = CircleShape),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.calendar),
-                                    contentDescription = "Calendar",
-                                    modifier = Modifier.size(24.dp)
-                                )
-
-                            }
-
-                            Spacer(modifier = Modifier.width(12.dp))
-
-                            Column {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text(
-                                        text = "12.0 Days",
-                                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                                        color = MaterialTheme.colorScheme.onSurface
-                                    )
-                                    Spacer(modifier = Modifier.width(4.dp))
-                                    Text(
-                                        text = "/ 18.0 Days",
-                                        style = MaterialTheme.typography.labelMedium,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                }
-                                Text(
-                                    "Annual Leave Balance",
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
-                        }
-
-                        Icon(
-                            imageVector = Icons.Default.ChevronRight,
-                            contentDescription = "Go",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-
-                }
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Module Overview
-        Text("Module Overview", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onTertiaryContainer)
-        Spacer(modifier = Modifier.height(8.dp))
-
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(120.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    .fillMaxWidth()
+                    .height(120.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
 //            contentPadding = PaddingValues(horizontal = 8.dp)
-        ) {
-            // Chunk items in groups for vertical stacking
-            items(itemsList.chunked(2)) { pair ->
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    pair.forEach { item ->
-                        Card(
-                            modifier = Modifier
-                                .width(180.dp)
-                                .height(50.dp),
-                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
-                        ) {
-                            Row(
+            ) {
+                // Chunk items in groups for vertical stacking
+                items(itemsList.chunked(2)) { pair ->
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        pair.forEach { item ->
+                            Card(
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(horizontal = 12.dp, vertical = 2.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                    .width(180.dp)
+                                    .height(50.dp),
+                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
                             ) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Icon(
-                                        painter = painterResource(id = item.imageRes),
-                                        contentDescription = item.label,
-                                        modifier = Modifier.size(24.dp),
-                                        tint = Color.White
-                                    )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(
-                                        text = item.label,
-                                        color = Color.White,
-                                        style = MaterialTheme.typography.labelMedium
-                                    )
-                                }
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(horizontal = 12.dp, vertical = 2.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Icon(
+                                            painter = painterResource(id = item.imageRes),
+                                            contentDescription = item.label,
+                                            modifier = Modifier.size(24.dp),
+                                            tint = Color.White
+                                        )
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text(
+                                            text = item.label,
+                                            color = Color.White,
+                                            style = MaterialTheme.typography.labelMedium
+                                        )
+                                    }
 
-                                if (item.label == "Pend. Tasks") {
-                                    Box(
-                                        modifier = Modifier
-                                            .background(Color.Red, CircleShape)
-                                            .size(24.dp),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Text("25", color = Color.White, style = MaterialTheme.typography.labelSmall)
+                                    if (item.label == "Pend. Tasks") {
+                                        Box(
+                                            modifier = Modifier
+                                                .background(Color.Red, CircleShape)
+                                                .size(24.dp),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Text(
+                                                "25",
+                                                color = Color.White,
+                                                style = MaterialTheme.typography.labelSmall
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -311,136 +320,144 @@ fun HomeScreen() {
                     }
                 }
             }
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        //Office Announcement
-        Card(
-            modifier = Modifier
-                .fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            shape = RoundedCornerShape(12.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-        ) {
-            Column(
+            //Office Announcement
+            Card(
                 modifier = Modifier
-                    .padding(16.dp)
                     .fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                shape = RoundedCornerShape(12.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
                 ) {
-                    Text("Office Announcement", style = MaterialTheme.typography.titleMedium)
-
                     Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.clickable { /* Handle view all click */ }
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            text = "View All",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                        Icon(
-                            imageVector = Icons.Default.ChevronRight,
-                            contentDescription = "View All",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
+                        Text("Office Announcement", style = MaterialTheme.typography.titleMedium)
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.clickable { /* Handle view all click */ }
+                        ) {
+                            Text(
+                                text = "View All",
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Icon(
+                                imageVector = Icons.Default.ChevronRight,
+                                contentDescription = "View All",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
                     }
-                }
 
-                Spacer(modifier = Modifier.height(8.dp))
-                AnnouncementCard(
-                    avatarRes = R.drawable.avatar3,
-                    name = "Amanda Yip",
-                    position = "HR Officer",
-                    title = "Annual Leave and Medical Leave Policy",
-                    description = "Please refer to the latest leave guidelines in the attached document.",
-                    fileName = "FFHR_2025_007_Remote_Work_Guidelines.pdf"
-                )
-                AnnouncementCard(
-                    avatarRes = R.drawable.avatar1,
-                    name = "Raymond Tan",
-                    position = "HR Manager",
-                    title = "Leave Carry Forward Notice",
-                    description = "Reminder: Max 5 days can be carried forward to next year",
-                    fileName = "FFHR_2025_014_Leave_Carry_Forward.pdf"
-                )
-                AnnouncementCard(
-                    avatarRes = R.drawable.avatar2,
-                    name = "Jonathan Lim",
-                    position = "Head of Operations",
-                    title = "IMPORTANT REMINDER: Team Leave Planning and Work Schedule for Q3 2025",
-                    description = "To ensure smooth project execution during the upcoming quarter, I kindly ask all team members to submit their planned annual leave dates by June 28",
-                    fileName = "OPS_2025_003_Q3_Leave_Planning_Guide.pdf"
-                )
-
-
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Upcoming Events
-        Card(
-            modifier = Modifier
-                .fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            shape = RoundedCornerShape(12.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text("Upcoming Events", style = MaterialTheme.typography.titleMedium)
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.clickable { /* Handle view all click */ }
-                    ) {
-                        Text(
-                            text = "View All",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                        Icon(
-                            imageVector = Icons.Default.ChevronRight,
-                            contentDescription = "View All",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-                EventCard(
-                    title = "Townhall Meeting",
-                    date = "Thursday, 26 June 2025",
-                    time = "01:30 AM – 02:00 AM",
-                    eventType = EventType.Company,
-                    people = listOf(
-                        R.drawable.avatar4,
-                        R.drawable.avatar3,
-                        R.drawable.avatar2,
-                        R.drawable.avatar5,
-                        R.drawable.avatar1
+                    Spacer(modifier = Modifier.height(8.dp))
+                    AnnouncementCard(
+                        avatarRes = R.drawable.avatar3,
+                        name = "Amanda Yip",
+                        position = "HR Officer",
+                        title = "Annual Leave and Medical Leave Policy",
+                        description = "Please refer to the latest leave guidelines in the attached document.",
+                        fileName = "FFHR_2025_007_Remote_Work_Guidelines.pdf"
                     )
-                )
-                EventCard("Happy Birthday! SITI YUHANIS AHMAD JAIS", "Thursday, 26 June 2025", eventType = EventType.Personal)
-                EventCard("Islamic New Year (Awal Muharam)", "Friday, 27 June 2025", eventType = EventType.Public)
-            }
-        }
+                    AnnouncementCard(
+                        avatarRes = R.drawable.avatar1,
+                        name = "Raymond Tan",
+                        position = "HR Manager",
+                        title = "Leave Carry Forward Notice",
+                        description = "Reminder: Max 5 days can be carried forward to next year",
+                        fileName = "FFHR_2025_014_Leave_Carry_Forward.pdf"
+                    )
+                    AnnouncementCard(
+                        avatarRes = R.drawable.avatar2,
+                        name = "Jonathan Lim",
+                        position = "Head of Operations",
+                        title = "IMPORTANT REMINDER: Team Leave Planning and Work Schedule for Q3 2025",
+                        description = "To ensure smooth project execution during the upcoming quarter, I kindly ask all team members to submit their planned annual leave dates by June 28",
+                        fileName = "OPS_2025_003_Q3_Leave_Planning_Guide.pdf"
+                    )
 
-        Spacer(modifier = Modifier.height(16.dp))
+
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Upcoming Events
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                shape = RoundedCornerShape(12.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("Upcoming Events", style = MaterialTheme.typography.titleMedium)
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.clickable { /* Handle view all click */ }
+                        ) {
+                            Text(
+                                text = "View All",
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Icon(
+                                imageVector = Icons.Default.ChevronRight,
+                                contentDescription = "View All",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+                    EventCard(
+                        title = "Townhall Meeting",
+                        date = "Thursday, 26 June 2025",
+                        time = "01:30 AM – 02:00 AM",
+                        eventType = EventType.Company,
+                        people = listOf(
+                            R.drawable.avatar4,
+                            R.drawable.avatar3,
+                            R.drawable.avatar2,
+                            R.drawable.avatar5,
+                            R.drawable.avatar1
+                        )
+                    )
+                    EventCard(
+                        "Happy Birthday! SITI YUHANIS AHMAD JAIS",
+                        "Thursday, 26 June 2025",
+                        eventType = EventType.Personal
+                    )
+                    EventCard(
+                        "Islamic New Year (Awal Muharam)",
+                        "Friday, 27 June 2025",
+                        eventType = EventType.Public
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+        }
     }
 }
 

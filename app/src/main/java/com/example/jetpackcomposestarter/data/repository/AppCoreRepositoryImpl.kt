@@ -13,5 +13,12 @@ class AppCoreRepositoryImpl (
 ): AppCoreRepository {
     override fun getTravelAuthorisations() = appCoreDao.getTAFListing()
     override suspend fun getTafFormById(id: Int) = appCoreDao.getTafFormById(id)
-    override suspend fun insertTafForm(tafForm: TravelAuthorisationEntity) = appCoreDao.insertTafForm(tafForm)
+    override suspend fun insertTafForm(tafForms: List<TravelAuthorisationEntity>) { appCoreDao.saveTAFForm(tafForms) }
+    override  suspend fun updateTafForm(tafForm: TravelAuthorisationEntity) { appCoreDao.updateTAFForm(tafForm)}
+    override suspend fun deleteTafForm(tafForm: TravelAuthorisationEntity) {
+        tafForm.id.let { id ->
+            appCoreDao.deleteTAFForm(id)
+        }
+    }
+
 }

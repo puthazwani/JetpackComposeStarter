@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.jetpackcomposestarter.navigation.NavigationRoutes
+import com.example.jetpackcomposestarter.navigation.graph.AppRoutes
 import com.example.jetpackcomposestarter.shared.theme.JetpackComposeStarterTheme
 
 enum class DrawerMenuState {
@@ -46,7 +46,7 @@ fun AppDrawer(
         modifier = Modifier,
         drawerContainerColor = MaterialTheme.colorScheme.surfaceContainer
     ) {
-        DrawerHeader(modifier = Modifier, route = NavigationRoutes.Unauthenticated.Login.route)
+        DrawerHeader(modifier = Modifier, route = AppRoutes.Auth.Login)
         HorizontalDivider()
         Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.spacer_padding)))
 
@@ -54,7 +54,7 @@ fun AppDrawer(
             DrawerMenuState.Main -> {
                 NavigationDrawerItem(
                     label = { Text(stringResource(R.string.home)) },
-                    selected = route == NavigationRoutes.Authenticated.Home.route,
+                    selected = route == AppRoutes.Main.Home,
                     onClick = {
                         navigateToHome()
                         closeDrawer()
@@ -269,7 +269,7 @@ fun AppDrawer(
                 )
                 NavigationDrawerItem(
                     label = { Text("Travel Authorisations") },
-                    selected = route == NavigationRoutes.Authenticated.Travel.TravelAuthorization.MyTAF.route,
+                    selected = route == AppRoutes.Travel.Authorization.MyTaf,
                     onClick = {
                         navigateToTravel() // or a specific navigateToTAF()
                         closeDrawer()
@@ -298,7 +298,7 @@ fun DrawerHeader(
     modifier: Modifier = Modifier,
     navigateToLogout: () -> Unit = {},
 ) {
-    val isLogout = route == NavigationRoutes.Authenticated.Travel.TravelAuthorization.MyTAF.route
+    val isLogout = route == AppRoutes.Travel.Authorization.MyTaf
 
     Box(
         modifier = modifier
@@ -319,7 +319,7 @@ fun DrawerHeader(
                 .fillMaxWidth()
         ) {
             Image(
-                painterResource(id = R.drawable.user),
+                painterResource(id = R.drawable.avatar4),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -338,14 +338,14 @@ fun DrawerHeader(
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(
-                        text = "Ishak Abdul Aziz",
+                        text = "Hairol Ariffein Bin Sahari",
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSecondary
                     )
 
                     Text(
-                        text = "Vice President, Retail Sales Dept",
+                        text = "Technical Executive, Retail Sales Dept",
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSecondary
@@ -370,9 +370,9 @@ fun DrawerHeader(
     uiMode = android.content.res.Configuration.UI_MODE_NIGHT_NO
 )
 @Composable
-fun AppDrawerLightScreenPreviewDark() {
+fun AppDrawerLightScreenPreview() {
     JetpackComposeStarterTheme(darkTheme = false) {
-        AppDrawer(modifier = Modifier, route = NavigationRoutes.Authenticated.Home.route)
+        AppDrawer(modifier = Modifier, route = AppRoutes.Main.Home)
     }
 }
 
@@ -381,8 +381,8 @@ fun AppDrawerLightScreenPreviewDark() {
     uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-fun AppDrawerDarkScreenPreviewDark() {
+fun AppDrawerDarkScreenPreview() {
     JetpackComposeStarterTheme(darkTheme = true) {
-        AppDrawer(modifier = Modifier, route = NavigationRoutes.Authenticated.Home.route)
+        AppDrawer(modifier = Modifier, route = AppRoutes.Main.Home)
     }
 }

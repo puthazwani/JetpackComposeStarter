@@ -10,11 +10,12 @@ import java.util.Locale
 //TAF Form
 @Entity(tableName = "taf_application_table")
 data class TravelAuthorisationEntity(
-    @PrimaryKey val id: Long,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
     val employeeId: Long,
     val employeeNo: String = "",
     val personId: Long?,
-    val localOversea: String,
+    val localOversea: String?,
     val destination: String,
     val dateStart: Date,
     val dateEnd: Date,

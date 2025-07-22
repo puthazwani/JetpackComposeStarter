@@ -25,7 +25,7 @@ import com.example.jetpackcomposestarter.data.local.entities.TravelAuthorisation
         TafApplicationItineraryEntity::class,
         BaseAttachment::class
     ],
-    version = 1 // // ⚠️ Increase this when schema changes (used for migrations)
+    version = 2 // // ⚠️ Increase this when schema changes (used for migrations)
 )
 @TypeConverters(Converters::class) // Converts unsupported data types (e.g., Date, List) for Room
 abstract class AppCoreDatabase: RoomDatabase() {

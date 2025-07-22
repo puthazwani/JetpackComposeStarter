@@ -17,5 +17,7 @@ interface AppCoreRepository {
     // Travel Authorization
     fun getTravelAuthorisations(): Flow<List<TravelAuthorisationEntity>>
     suspend fun getTafFormById(id: Int): TravelAuthorisationEntity?
-    suspend fun insertTafForm(tafForm: TravelAuthorisationEntity)
+    suspend fun insertTafForm(tafForms: List<TravelAuthorisationEntity>)
+    suspend fun updateTafForm(tafForm: TravelAuthorisationEntity)
+    suspend fun deleteTafForm(tafForm: TravelAuthorisationEntity)
 }

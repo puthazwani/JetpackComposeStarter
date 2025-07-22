@@ -30,18 +30,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.Locale
 
 private val DateIconSize = 50.dp
 
 @Composable
-fun DateIconView(date: LocalDate) {
+fun DateIconView(
+    date: LocalDate,
+    modifier: Modifier = Modifier
+) {
     val monthFormatter = DateTimeFormatter.ofPattern("MMM", Locale.getDefault())
     val dayFormatter = DateTimeFormatter.ofPattern("d", Locale.getDefault())
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(DateIconSize)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(6.dp))
             .clip(RoundedCornerShape(6.dp))
@@ -166,4 +171,10 @@ fun MonthCalendarView(
             }
         }
     }
+}
+
+fun Date?.toLocalDateOrNull(): LocalDate? {
+    return this?.toInstant()
+        ?.atZone(ZoneId.systemDefault())
+        ?.toLocalDate()
 }

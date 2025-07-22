@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.JetpackComposeStarter" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.JetpackComposeStarter" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Optional: Apply your MaterialCalendar style override -->
+        <item name="materialCalendarStyle">@style/MaterialCalendarTheme</item>
+    </style>
+
+
+    <!-- Material Calendar Style Override -->
+    <style name="MaterialCalendarTheme" parent="Theme.MaterialComponents.Dialog">
+    <item name="android:colorPrimary">#0080C5</item> <!-- header background -->
+        <item name="android:colorAccent">#0080C5</item>
+        <item name="android:windowBackground">#F0F8FF</item> <!-- calendar background -->
+        <item name="android:colorControlActivated">#0080C5</item> <!-- selected day -->
+        <item name="android:textColorPrimary">#000000</item> <!-- days of the month -->
+        <item name="android:textColorSecondary">#0080C5</item>
+    </style>
+
 </resources>

@@ -8,7 +8,7 @@ data class TravelAuthorization(
     var employeeId: Long,
     var employeeNo: String,
     var name: String?,
-    var localOversea: String,
+    var localOversea: String?,
     var destination: String,
     var dateStart: Date,
     var dateEnd: Date,
@@ -80,7 +80,7 @@ fun TravelAuthorization.toEntity() = TravelAuthorisationEntity(
     modifiedBy = this.modifiedBy,
     dateSubmitted = this.dateSubmitted,
     submittedByPersonId = this.submittedByPersonId,
-    actionedByPersonId = null, // If not tracked in original model
+    actionedByPersonId = null,
     applicationSource = this.applicationSource ?: "",
     applicationStatus = this.applicationStatus,
     applicationReferenceNumber = this.applicationReferenceNumber,
